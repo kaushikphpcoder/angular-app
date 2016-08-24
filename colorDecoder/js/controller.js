@@ -7,8 +7,53 @@ angular.module('starter.controllers', [])
 		for(var key in response){
 			$scope.clientLists.push(response[key]);
 			
-	    }
+       }
 	});//console.log($scope.clientLists);
+})
+.controller('test1Ctrl',function($scope, $http){
+    $scope.closeAttr=true;
+    $scope.tableList=function(){
+        $http.get("http://www.w3schools.com/angular/customers.php")
+        .then(function (response) {$scope.names = response.data.records;});
+    }
+    $scope.tableListClose=function(){ 
+        $scope.names =[];
+    }
+    $scope.dynAddDelete=function(){ 
+        $scope.closeAttr=false;
+        $scope.products = ["Milk", "Bread", "Cheese"];
+        $scope.remindText='';
+        $scope.addItem = function () {
+            if(!$scope.addMe){
+                return;
+            }
+            if($scope.products.indexOf($scope.addMe)==-1){
+                $scope.products.push($scope.addMe);
+                $scope.addMe='';
+            }else{
+                $scope.remindText='This is already added!Duplicate Entry Privented';
+            }
+            
+        }
+        $scope.removeItem = function (x) {
+            $scope.products.splice(x, 1);
+        }
+    }
+    $scope.dynAddDeleteClose=function(){
+        $scope.products =[];
+        $scope.closeAttr=true;
+    }
+    $scope.showToDoList=function(){
+        $scope.toDoList=[{todoTest:'The wall' ,done:false}];
+        $scope.addToDoLists=function(){ 
+            if(!$scope.addToDoList){
+                return;
+            }else{
+                $scope.toDoList.push({todoTest:$scope.addToDoList,done:false}); 
+            }
+        }
+    }
+
 })
 .controller('FileUploadCtrl',function($scope){
 	//============== DRAG & DROP =============
@@ -58,15 +103,15 @@ angular.module('starter.controllers', [])
     //============== DRAG & DROP =============
 
     $scope.setFiles = function(element) {
-    $scope.$apply(function($scope) {
-      console.log('files:', element.files);
+        $scope.$apply(function($scope) {
+          console.log('files:', element.files);
       // Turn the FileList object into an Array
-        $scope.files = []
-        for (var i = 0; i < element.files.length; i++) {
+      $scope.files = []
+      for (var i = 0; i < element.files.length; i++) {
           $scope.files.push(element.files[i])
-        }
+      }
       $scope.progressVisible = false
-      });
+  });
     };
 
     $scope.uploadFile = function() {

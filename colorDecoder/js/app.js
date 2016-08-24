@@ -22,6 +22,10 @@ sampleApp.config(['$routeProvider',function($routeProvider) {
  		templateUrl: 'template/imageUploader.html', 
  		controller: 'FileUploadCtrl' ,
  })
+ .when('/test1',{
+ 		templateUrl: 'template/test1.html', 
+ 		controller: 'test1Ctrl' ,
+ })
  .otherwise({
         redirectTo: '/viewCounts'
 });

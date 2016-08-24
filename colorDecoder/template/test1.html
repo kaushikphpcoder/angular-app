@@ -1,0 +1,38 @@
+<div style="margin-top:50px;padding-left:0px;" ng-controller="test1Ctrl">
+	<div class="row">
+
+
+		<button type="button" class="btn btn-primary" ng-click="tableList()">Show Table List</button>
+		<table>
+			<tr ng-repeat="x in names | orderBy:'Country'">
+				<td ng-if="$odd" style="background-color:gray;">{{ x.Name }}</td>
+				<td ng-if="$even" style="background-color:cyan;">{{ x.Name }}</td>
+				<td ng-if="$odd" style="background-color:cyan;">{{ x.Country }}</td>
+				<td ng-if="$even" style="background-color:gray;">{{ x.Country }}</td>
+			</tr>
+			<button type="button" class="btn btn-default" ng-click="tableListClose()" >Close Table List </button>
+		</table>
+	</div>
+	<div class="row">
+		<button type="button"  class="btn btn-primary" ng-click="dynAddDelete()">Show dyn. Add Delete</button>
+		<input type="text" ng-model="addMe" ng-hide="closeAttr"  class="form-control" >
+		<button type="button" class="btn btn-success" ng-hide="closeAttr" ng-click="addItem()">ADD</button>
+		<p ng-bind="remindText"></p>
+		<ul>
+			<li ng-repeat="x in products | orderBy:'x'">{{x}}<span ng-click="removeItem($index)">X</span></li>
+			<!-- <input type="checkbox" ng-model="closeAttr"> -->
+			<button type="button" class="btn btn-default"  ng-click="dynAddDeleteClose()" >Close dyn. Add Delete </button>
+		</ul>
+	</div>
+	<div class="row">
+		<button type="button"  class="btn btn-primary" ng-click="showToDoList()">Show ToDo List</button>
+		<input type="text" ng-model="addToDoList" ng-hide=""  class="form-control" >
+		<button type="button" class="btn btn-success" ng-hide="" ng-click="addToDoLists()">ADD</button>
+		<ul>
+			<li ng-repeat="x in toDoList "><span ><input type="checkbox" /></span>{{x.todoTest}}</li>
+			<button type="button" class="btn btn-default"  ng-click="" >Delete</button>
+			<button type="button" class="btn btn-default"  ng-click="" >Close ToDo List</button>
+		</ul>
+	</div>
+	
+</div>
