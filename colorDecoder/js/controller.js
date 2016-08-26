@@ -1,6 +1,13 @@
 angular.module('starter.controllers', [])
 .controller('FormController', function($scope) {
 }) 
+.controller('contactCtrl', function ($scope) { 
+    $scope.master={'firstname':'Brendon','lastname':'McCullum'};
+    $scope.reset=function(){
+        $scope.user=angular.copy($scope.master);
+    }
+    $scope.reset();
+})
 .controller('ListClients', function($scope,ClientList) {    
 	$scope.clientLists =[];
 	ClientList.getdata(function(response){
@@ -17,7 +24,7 @@ angular.module('starter.controllers', [])
         .then(function (response) {$scope.names = response.data.records;});
     }
     $scope.tableListClose=function(){ 
-        $scope.names =[];
+        $scope.names =[]; 
     }
     $scope.dynAddDelete=function(){ 
         $scope.closeAttr=false;

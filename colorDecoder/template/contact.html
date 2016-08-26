@@ -1,0 +1,24 @@
+<div class="container-fluid padder-content" style="margin-left:5%;">
+	<div class="row">	
+		<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+			<form class="form-horizontal" ng-controller="contactCtrl">
+				<div class="form-group">
+					<legend>First Name</legend>
+					<input type="text" id="input" class="form-control" ng-model="user.firstname" >
+				</div>
+				<div class="form-group">
+					<legend>Last Name</legend>
+					<input type="text" id="input" class="form-control" ng-model="user.lastname">
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10 col-sm-offset-2">
+						<button type="button" class="btn btn-primary" ng-click="reset()">Reset</button>
+						<button type="submit" class="btn btn-success">Submit</button>
+					</div>
+				</div>
+				<p>{{ user }}</p>
+			</form>
+
+		</div>		
+	</div>
+</div>

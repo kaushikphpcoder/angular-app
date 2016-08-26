@@ -26,6 +26,10 @@ sampleApp.config(['$routeProvider',function($routeProvider) {
  		templateUrl: 'template/test1.html', 
  		controller: 'test1Ctrl' ,
  })
+  .when('/contact',{
+ 		templateUrl: 'template/contact.html', 
+ 		controller: 'contactCtrl' ,
+ })
  .otherwise({
         redirectTo: '/viewCounts'
 });
