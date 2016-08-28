@@ -1,7 +1,7 @@
-<div class="container-fluid padder-content" style="margin-left:5%;">
+<div class="container-fluid padder-content" style="margin-left:5%;" ng-controller="contactCtrl">
 	<div class="row">	
-		<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-			<form class="form-horizontal" ng-controller="contactCtrl">
+		<div class="col-md-10 col-lg-10">
+			<form class="form-horizontal" >
 				<div class="form-group">
 					<legend>First Name</legend>
 					<input type="text" id="input" class="form-control" ng-model="user.firstname" >
@@ -13,10 +13,56 @@
 				<div class="form-group">
 					<div class="col-sm-10 col-sm-offset-2">
 						<button type="button" class="btn btn-primary" ng-click="reset()">Reset</button>
-						<button type="submit" class="btn btn-success">Submit</button>
+						<button type="submit" class="btn btn-success" ng-show="insertShow" ng-click="insert()">Submit</button>
+						<button type="submit" class="btn btn-success" ng-show="updateShow" ng-click="update(updateId)">Update</button>
 					</div>
 				</div>
-				<p>{{ user }}</p>
+				<div class="table-responsive">
+					<div class="col-md-4col-lg-4">
+						<input type="text" id="input" class="form-control" ng-model="search" placeholder="Search Baby">
+					</div>
+					<table class="table table-hover"> 
+						<thead>
+							<tr>
+								<th>Sl no</th>
+								<th ng-click="sortEr('firstname')">First Name</th>
+								<th ng-click="sortEr('lastname')">Last Name</th>
+								<th>Edit</th> 
+								<th>Update</th>
+							</tr>
+						</thead>
+						<tbody>
+						<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+						Previous
+					</button>
+					{{currentPage+1}}/{{numberOfPages()}}
+					<button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+						Next
+					</button>
+							<tr ng-repeat="value in listUser | orderBy:sortErBy | filter:search | startFrom:currentPage*pageSize | limitTo:pageSize">
+								<td ng-if="$odd" style="background-color:#e7e7e7;">{{ $index +1 }}</td>
+								<td ng-if="$even" style="background-color:#f8f8f8;">{{ $index +1 }}</td>
+								<td ng-if="$odd" style="background-color:#e7e7e7;">{{ value.firstname}}</td>
+								<td ng-if="$even" style="background-color:#f8f8f8;">{{ value.firstname}}</td>
+								<td ng-if="$odd" style="background-color:#e7e7e7;">{{ value.lastname}}</td>
+								<td ng-if="$even" style="background-color:#f8f8f8;">{{ value.lastname}}</td>
+								<td ng-if="$odd" style="background-color:#e7e7e7;">
+									<button type="button" class="btn btn-default" ng-click="edite(value.id,value.firstname,value.lastname)" >Edit</button>
+								</td>
+								<td ng-if="$even" style="background-color:#f8f8f8;">
+									<button type="button" class="btn btn-default" ng-click="edite(value.id,value.firstname,value.lastname)" >Edit</button>
+								</td>
+								<td ng-if="$odd" style="background-color:#e7e7e7;">
+									<button type="button" class="btn btn-danger" ng-click="delete(value.id)" >Delete</button>
+								</td>
+								<td ng-if="$even" style="background-color:#f8f8f8;">
+									<button type="button" class="btn btn-danger" ng-click="delete(value.id)" >Delete</button>
+								</td>		
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
 			</form>
 
 		</div>		

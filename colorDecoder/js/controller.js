@@ -1,12 +1,72 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['simplePagination']) 
 .controller('FormController', function($scope) {
 }) 
-.controller('contactCtrl', function ($scope) { 
-    $scope.master={'firstname':'Brendon','lastname':'McCullum'};
-    $scope.reset=function(){
-        $scope.user=angular.copy($scope.master);
+.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start;
+        return input.slice(start);
     }
-    $scope.reset();
+})
+.controller('contactCtrl', function ($scope) { 
+    $scope.listUser=[];
+    $scope.id=0; 
+    $scope.insertShow=true;
+    $scope.updateShow=false;
+    $scope.master={id:$scope.id,'firstname':'Brendon','lastname':'McCullum'};
+    $scope.reset=function(){
+        $scope.listUser=[];
+        $scope.user=angular.copy($scope.master);
+        $scope.id=0;
+    }
+    $scope.reset();   
+    $scope.insert=function(){
+        $scope.id=$scope.id+1;
+        $scope.listUser.push({id:$scope.id,firstname:$scope.user.firstname,lastname:$scope.user.lastname});
+        console.log($scope.listUser);
+    }
+    $scope.sortEr=function(x){ 
+       $scope.sortErBy=x; 
+   }
+   $scope.delete=function(id){ 
+    var oldList=$scope.listUser;
+    $scope.listUser=[];
+    angular.forEach(oldList, function(x) { 
+        if(x['id']!=id){
+            $scope.listUser.push(x);
+        }  
+    })
+}
+$scope.edite=function(id,fname,lname){
+    $scope.insertShow=false;
+    $scope.updateShow=true;
+    $scope.updateId=id;
+    $scope.user.firstname=fname;
+    $scope.user.lastname=lname;
+}
+$scope.update=function(id){ 
+    var oldList=$scope.listUser;
+    $scope.listUser=[];
+    angular.forEach(oldList,function(x){ 
+        if(x['id']!=id){
+            $scope.listUser.push(x);
+        } 
+    })
+    $scope.listUser.push({id:id,firstname:$scope.user.firstname,lastname:$scope.user.lastname});
+    $scope.insertShow=true;
+    $scope.updateShow=false;
+    $scope.user.firstname='';
+    $scope.user.lastname='';
+}
+
+$scope.currentPage = 0;
+$scope.pageSize = 5;
+$scope.data = [];
+$scope.numberOfPages=function(){
+    return Math.ceil($scope.data.length/$scope.pageSize);                
+}
+for (var i=0; i<45; i++) {
+    $scope.data.push("Item "+i);
+}
 })
 .controller('ListClients', function($scope,ClientList) {    
 	$scope.clientLists =[];
